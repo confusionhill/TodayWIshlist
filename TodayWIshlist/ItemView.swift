@@ -8,19 +8,23 @@
 import SwiftUI
 
 struct ItemView: View {
+    var price:Float = 999.99
+    var name:String = "Lorem Ipsum DUi Amet minum Amer di Kubus"
+    var desc:String = ""
+    var imeg:String = "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
     var body: some View {
         ZStack{
             Color(customcolor).ignoresSafeArea()
             ScrollView(showsIndicators:false) {
                 VStack{
                     //Mark : Image View
-                    ImageView()
+                    ImageView(imeg: imeg)
                         .padding(.bottom)
                     // Name and Price View
-                    NameAndPrice()
+                    NameAndPrice(price: price,name: name)
                         .padding(.bottom)
                     //DescriptionView
-                    Description()
+                    Description(isiDesc: desc)
                         //.navigationTitle("Fjall Raven - Foldsack No.1 Backpack, fits 15 laptops")
                         //.navigationBarTitleDisplayMode(.large)
                         //. navigationBarHidden(true)
@@ -38,6 +42,8 @@ struct ItemView_Previews: PreviewProvider {
 }
 
 struct NameAndPrice: View {
+    var price:Float
+    var name:String
     var body: some View {
         RoundedRectangle(cornerRadius: 15)
             .foregroundColor(.white)
@@ -45,14 +51,14 @@ struct NameAndPrice: View {
             .frame(height:80)
             .overlay(
                 HStack{
-                    Text("Fjall Raven - Foldsack No.1 Backpack, fits 15 laptops")
+                    Text(name)
                         .foregroundColor(.black)
                         .font(.headline)
                         .multilineTextAlignment(.leading)
-                        .frame(width:UIScreen.width-150)
+                        .frame(width:UIScreen.width-200,height: 60)
+                        .padding(.horizontal)
                     Spacer()
-                    Text("$999")
-                        .font(.title)
+                    Text("$\(String(format: "%.2f", price))")
                         .fontWeight(.semibold)
                         .padding()
                         .foregroundColor(.green)
@@ -62,39 +68,20 @@ struct NameAndPrice: View {
 }
 
 struct ImageView: View {
+    var imeg:String = "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
     var body: some View {
         RoundedRectangle(cornerRadius: 15)
             .foregroundColor(.white)
             .padding(.horizontal)
             .frame(height:UIScreen.width)
             .overlay(VStack{
-                Image("backpack")
-                    .resizable()
+                RemoteImage(url: imeg)
                     .aspectRatio(contentMode: .fit)
+                    /*
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)*/
             }.padding()
             )
     }
 }
 
-struct Description: View {
-    var body: some View {
-        RoundedRectangle(cornerRadius: 15)
-            .foregroundColor(.white)
-            .padding(.horizontal)
-            .frame(height:UIScreen.width)
-            .overlay(HStack(){
-                VStack(alignment:.leading) {
-                    Text("Description")
-                        .font(.title)
-                        .fontWeight(.semibold)
-                        .padding(.bottom,10)
-                    Text("""
-Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.
-""")
-                    Spacer()
-                }.padding()
-                Spacer()
-            }.padding()
-            )
-    }
-}

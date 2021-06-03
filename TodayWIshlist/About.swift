@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct About: View {
+    let deskripsiDika:String = """
+Farhandika, seorang mahasiswa asal Riau yang lahir di Bogor, 24 Februari 2001 dan sekarang sedang menempuh pendidikan jenjang sarjana di Institut Teknologi Bandung.
+\nDika, sebagaimana orang memanggilnya sangat tertarik pada dunia komputer, terutama di bidang Mobile Development, Hardware, Operation System, dan yang pastinya Website Development.
+"""
     var body: some View {
         ZStack {
             Color(customcolor).ignoresSafeArea()
             ScrollView(showsIndicators:false) {
+                VStack{
                 Content()
                     .navigationTitle("About Me")
+                Description(isiDesc:self.deskripsiDika,isForItem:false)
+                }
             }
         }
     }
@@ -26,8 +33,8 @@ struct About_Previews: PreviewProvider {
 }
 
 struct Content: View {
+
     var body: some View {
-        VStack{
             RoundedRectangle(cornerRadius: 15)
                 .foregroundColor(.white)
                 .padding(.horizontal)
@@ -47,6 +54,5 @@ struct Content: View {
                     Text("fdika24@outlook.com")
                 }.padding([.top,.bottom]))
             Spacer()
-        }
     }
 }
