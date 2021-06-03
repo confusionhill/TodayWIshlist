@@ -10,6 +10,7 @@ import Foundation
 class ItemToko:ObservableObject{
     private let myApi = "https://fakestoreapi.com/products"
     @Published var items = [Item]()
+    @Published var isLoaded = false
     
     func loadData() -> Void{
         guard let url = URL(string: myApi) else {
@@ -24,7 +25,8 @@ class ItemToko:ObservableObject{
                         let result =  try JSONDecoder().decode([Item].self, from: safeData)
                         DispatchQueue.main.async {
                             self.items = result
-                            print(result)
+                            self.isLoaded = true
+                            //print(result)
                         }
                     } catch {
                         print(error)
